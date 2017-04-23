@@ -1,23 +1,20 @@
-import unittest
+import pytest
 from models.group import Group
 from web_api.addressbook_api import AddressBookAPI
 
 
-class test_add_group(unittest.TestCase):
-    def setUp(self):
-        self.app = AddressBookAPI()
-    
-    def test_test_add_group(self):
-        test_group = Group(name="group_name", header="header", footer="footer")
-        self.app.open_home_page()
-        self.app.login(username="admin", password="secret")
-        self.app.open_group_page()
-        self.app.create_group(test_group)
-        self.app.return_to_group_page()
-        self.app.logout()
+@pytest.fixture
+def app():
+    addr_api = AddressBookAPI()
+    yield addr_api
+    addr_api.destroy()
 
-    def tearDown(self):
-        self.app.destroy()
 
-if __name__ == '__main__':
-    unittest.main()
+def test_add_group(app):
+    test_group = Group(name="group_name", header="header", footer="footer")
+    app.open_home_page()
+    app.login(username="admin", password="secret")
+    app.open_group_page()
+    app.create_group(test_group)
+    app.return_to_group_page()
+    app.logout()
