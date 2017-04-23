@@ -45,6 +45,12 @@ class AddressBookAPI:
         # Submit group
         wd.find_element_by_name("submit").click()
 
+    def delete_group_by_number(self, number):
+        wd = self.wd
+        checkboxes = wd.find_elements_by_name("selected[]")
+        checkboxes[number].click()
+        wd.find_element_by_name("delete").click()
+
     def return_to_group_page(self):
         wd = self.wd
         # Return to group page
