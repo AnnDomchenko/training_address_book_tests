@@ -61,5 +61,9 @@ class AddressBookAPI:
         # Logout
         wd.find_element_by_css_selector('form[name="logout"] > a').click()
 
+    def find_message(self):
+        wd = self.wd
+        return wd.find_element_by_css_selector("div.msgbox").text
+
     def destroy(self):
         self.wd.quit()
