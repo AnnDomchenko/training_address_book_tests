@@ -12,6 +12,7 @@ class AddressBookAPI:
         wd.get("http://localhost:8888/addressbook/")
 
     def login(self, username, password):
+        self.open_home_page()
         wd = self.wd
         # Login
         wd.find_element_by_name("user").click()
