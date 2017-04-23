@@ -1,5 +1,6 @@
 from selenium import webdriver
 import unittest
+from models.group import Group
 
 
 class test_add_group(unittest.TestCase):
@@ -8,10 +9,11 @@ class test_add_group(unittest.TestCase):
         self.wd.implicitly_wait(60)
     
     def test_test_add_group(self):
+        test_group = Group(name="group_name", header="header", footer="footer")
         self.open_home_page()
         self.login(username="admin", password="secret")
         self.open_group_page()
-        self.create_group(name="group_name", header="header", footer="footer")
+        self.create_group(test_group)
         self.return_to_group_page()
         self.logout()
 
@@ -36,20 +38,20 @@ class test_add_group(unittest.TestCase):
         # Open group page
         wd.find_element_by_xpath('//*[@id="nav"]/ul/li[3]/a').click()
 
-    def create_group(self, name, header, footer):
+    def create_group(self, group):
         wd = self.wd
         # Init group creation
         wd.find_element_by_name("new").click()
         # Fill group form
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
-        wd.find_element_by_name("group_name").send_keys(name)
+        wd.find_element_by_name("group_name").send_keys(group.name)
         wd.find_element_by_name("group_header").click()
         wd.find_element_by_name("group_header").clear()
-        wd.find_element_by_name("group_header").send_keys(header)
+        wd.find_element_by_name("group_header").send_keys(group.header)
         wd.find_element_by_name("group_footer").click()
         wd.find_element_by_name("group_footer").clear()
-        wd.find_element_by_name("group_footer").send_keys(footer)
+        wd.find_element_by_name("group_footer").send_keys(group.footer)
         # Submit group
         wd.find_element_by_name("submit").click()
 
