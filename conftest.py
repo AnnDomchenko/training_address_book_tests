@@ -2,6 +2,7 @@ import pytest
 import random
 from web_api.addressbook_api import AddressBookAPI
 from models.group import Group
+from data.test_groups import test_groups
 
 
 @pytest.fixture(scope="session")
@@ -30,12 +31,6 @@ def index(request, app):
     if request.param == "random":
         return random.randrange(1, app.group.count()-1)
     return request.param
-
-
-test_groups = [
-    Group(name="group_name", header="header", footer="footer"),
-    Group(name="123", header="456", footer="7890")
-]
 
 
 @pytest.fixture(params=test_groups, ids=[repr(g) for g in test_groups])
