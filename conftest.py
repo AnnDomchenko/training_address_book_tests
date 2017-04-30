@@ -11,6 +11,6 @@ def app():
 
 @pytest.fixture(scope="session")
 def init_login(app):
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     yield
-    app.logout()
+    app.session.logout()

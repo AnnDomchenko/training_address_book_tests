@@ -7,7 +7,7 @@ class GroupHelper:
     def __init__(self, app):
         self.app = app
 
-    def is_group_present(self):
+    def is_present(self):
         self.open_group_page()
         return self.app.is_element_present(By.NAME, "selected[]")
 
@@ -19,7 +19,7 @@ class GroupHelper:
         group_link.click()
         WebDriverWait(wd, 15).until(staleness_of(group_link))
 
-    def create_group(self, group):
+    def create(self, group):
         wd = self.app.wd
         # Init group creation
         wd.find_element_by_name("new").click()
@@ -39,7 +39,7 @@ class GroupHelper:
         # Submit group
         wd.find_element_by_name("submit").click()
 
-    def delete_group_by_number(self, number):
+    def delete_by_number(self, number):
         wd = self.app.wd
         checkboxes = wd.find_elements_by_name("selected[]")
         checkboxes[number].click()
