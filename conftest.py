@@ -1,4 +1,5 @@
 import pytest
+import random
 from web_api.addressbook_api import AddressBookAPI
 from models.group import Group
 
@@ -24,8 +25,10 @@ def init_group(app, init_login):
         app.group.create(test_group)
 
 
-@pytest.fixture(params=[0, -1], ids=["first", "last"])
-def index(request):
+@pytest.fixture(params=[0, "random", -1], ids=["first", "random in middle", "last"])
+def index(request, app):
+    if request.param == "random":
+        return random.randrange(1, app.group.count()-1)
     return request.param
 
 

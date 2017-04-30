@@ -64,7 +64,13 @@ class GroupHelper:
             groups.append(Group(name=name, id=id))
         return groups
 
+    def count(self):
+        wd = self.app.wd
+        self.open_group_page()
+        checkboxes = wd.find_elements_by_name("selected[]")
+        return len(checkboxes)
+
     def modify_by_number(self, number, data_to_modify):
         data_to_modify.name
         data_to_modify.header
-        data_to_modify.footer
+        data_to_modify.footer        data_to_modify.footer
