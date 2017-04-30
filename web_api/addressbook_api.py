@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support.expected_conditions import staleness_of
+from selenium.webdriver.support.expected_conditions import staleness_of, element_to_be_clickable
 
 
 class AddressBookAPI:
@@ -43,8 +43,9 @@ class AddressBookAPI:
 
     def open_group_page(self):
         wd = self.wd
-        # Open group page
-        group_link = wd.find_element_by_xpath('//*[@id="nav"]/ul/li[3]/a')
+        # Finding link with waiting when it will be clickable
+        group_link = WebDriverWait(wd, 15).until(element_to_be_clickable((By.XPATH, '//*[@id="nav"]/ul/li[3]/a')))
+        # group_link = wd.find_element_by_xpath('//*[@id="nav"]/ul/li[3]/a')
         group_link.click()
         WebDriverWait(wd, 15).until(staleness_of(group_link))
 
@@ -83,8 +84,9 @@ class AddressBookAPI:
 
     def logout(self):
         wd = self.wd
-        # Logout
-        wd.find_element_by_css_selector('form[name="logout"] > a').click()
+        # Finding link with waiting when it will be clickable
+        link = WebDriverWait(wd, 15).until(element_to_be_clickable((By.CSS_SELECTOR, 'form[name="logout"] > a')))
+        link.click()
 
     def find_message(self):
         wd = self.wd
