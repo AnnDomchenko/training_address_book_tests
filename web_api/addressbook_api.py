@@ -35,7 +35,7 @@ class AddressBookAPI:
 
     def is_group_present(self):
         self.open_group_page()
-        self.is_element_present(By.NAME, "selected[]")
+        return self.is_element_present(By.NAME, "selected[]")
 
     def open_group_page(self):
         wd = self.wd
