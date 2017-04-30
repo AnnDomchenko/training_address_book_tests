@@ -6,7 +6,15 @@ from web_api.contact_helper import ContactHelper
 
 
 class AddressBookAPI:
-    def __init__(self):
+    def __init__(self, browser):
+        if browser == "chrome":
+            self.wd = webdriver.Chrome()
+        elif browser == "firefox":
+            self.wd = webdriver.Firefox()
+        elif browser == "edge":
+            self.wd = webdriver.Edge()
+        else:
+            raise ValueError("Unrecognized browser {}".format(browser))
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)

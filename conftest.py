@@ -5,9 +5,14 @@ from models.group import Group
 from data.test_groups import test_groups
 
 
+def pytest_addoption(parser):
+    parser.addoption("--browser", action="store", default="firefox")
+
+
 @pytest.fixture(scope="session")
-def app():
-    addr_api = AddressBookAPI()
+def app(request):
+    browser = request.config.getoption("--browser")
+    addr_api = AddressBookAPI(browser=browser)
     yield addr_api
     addr_api.destroy()
 
