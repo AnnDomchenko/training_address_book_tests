@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.expected_conditions import staleness_of, element_to_be_clickable
+from models.group import Group
 
 
 class GroupHelper:
@@ -51,3 +52,14 @@ class GroupHelper:
         link = wd.find_element_by_link_text("group page")
         link.click()
         WebDriverWait(wd, 15).until(staleness_of(link))
+
+    def get_list(self):
+        wd = self.app.wd
+        self.open_group_page()
+        checkboxes = wd.find_elements_by_name("selected[]")
+        groups = []
+        for checkbox in checkboxes:
+            name = checkbox.get_attribute("title")[8:-1]
+            id = int(checkbox.get_attribute("value"))
+            groups.append(Group(name=name, id=id))
+        return groups
