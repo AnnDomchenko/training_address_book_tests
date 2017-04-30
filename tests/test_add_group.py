@@ -8,6 +8,8 @@ def test_add_group(app, init_login):
     app.group.create(test_group)
     assert "A new group has been entered into the address book." in app.find_message()
     app.group.return_to_group_page()
-    # TODO: Verify group in group list
+    # Verifying new group presence in group list
     new_groups_list = app.group.get_list()
     assert len(old_groups_list) + 1 == len(new_groups_list)
+    old_groups_list.append(test_group)
+    assert sorted(old_groups_list) == sorted(new_groups_list)

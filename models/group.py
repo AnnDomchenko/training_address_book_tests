@@ -9,4 +9,15 @@ class Group:
         return "id: {}, name:{}".format(self.id, self.name)
 
     def __eq__(self, other):
-        return self.id == other.id and self.name == other.name
+        if self.id is None or other.id is None:
+            return self.name == other.name
+        else:
+            return self.id == other.id and self.name == other.name
+
+    def __lt__(self, other):
+        if self.id is None:
+            return False
+        elif other.id is None:
+            return True
+        else:
+            return self.id < other.id
