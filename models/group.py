@@ -6,7 +6,7 @@ class Group:
         self.id = id
 
     def __repr__(self):
-        return "id: {}, name:{}".format(self.id, self.name)
+        return "id: {}, name:{}, header: {}, footer: {}".format(self.id, self.name, self.header, self.footer)
 
     def __eq__(self, other):
         if self.id is None or other.id is None:
