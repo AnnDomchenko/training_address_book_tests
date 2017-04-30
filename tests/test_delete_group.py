@@ -1,11 +1,3 @@
-import pytest
-
-
-@pytest.fixture(params=[0, -1], ids=["first", "last"])
-def index(request):
-    return request.param
-
-
 def test_delete_group(app, init_login, init_group, index):
     app.group.open_group_page()
     old_groups_list = app.group.get_list()

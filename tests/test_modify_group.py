@@ -1,8 +1,5 @@
-from models.group import Group
-
-
-def test_modify_by_number(app, init_login, init_group):
-    data_to_modify = Group(name="new name", header="new header")
+def test_modify_by_number(app, init_login, init_group, test_group, index):
+    data_to_modify = test_group
     app.group.open_group_page()
     old_groups = app.group.get_list()
     app.group.modify_by_number(0, data_to_modify)

@@ -1,17 +1,3 @@
-from models.group import Group
-import pytest
-
-test_groups = [
-    Group(name="group_name", header="header", footer="footer"),
-    Group(name="123", header="456", footer="7890")
-]
-
-
-@pytest.fixture(params=test_groups, ids=[repr(g) for g in test_groups])
-def test_group(request):
-    return request.param
-
-
 def test_add_group(app, init_login, test_group):
     app.group.open_group_page()
     old_groups_list = app.group.get_list()

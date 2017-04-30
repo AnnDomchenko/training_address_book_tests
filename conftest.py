@@ -22,3 +22,19 @@ def init_group(app, init_login):
     if not app.group.is_present():
         test_group = Group(name="test name")
         app.group.create(test_group)
+
+
+@pytest.fixture(params=[0, -1], ids=["first", "last"])
+def index(request):
+    return request.param
+
+
+test_groups = [
+    Group(name="group_name", header="header", footer="footer"),
+    Group(name="123", header="456", footer="7890")
+]
+
+
+@pytest.fixture(params=test_groups, ids=[repr(g) for g in test_groups])
+def test_group(request):
+    return request.param
