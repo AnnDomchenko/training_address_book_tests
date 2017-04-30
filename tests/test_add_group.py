@@ -7,7 +7,11 @@ test_groups = [
 ]
 
 
-@pytest.mark.parametrize("test_group", test_groups, ids=[repr(g) for g in test_groups])
+@pytest.fixture(params=test_groups, ids=[repr(g) for g in test_groups])
+def test_group(request):
+    return request.param
+
+
 def test_add_group(app, init_login, test_group):
     app.group.open_group_page()
     old_groups_list = app.group.get_list()
