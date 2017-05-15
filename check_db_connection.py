@@ -1,4 +1,4 @@
-from db_api.addressbook_db import AddressbookDB
+from db_api.addressbook_orm import AddressbookORM
 
 config = {
     "host": "localhost",
@@ -8,10 +8,10 @@ config = {
     "db": "test"
 }
 
-db = AddressbookDB(**config)
+db = AddressbookORM(**config)
 
 try:
-    for c in db.get_contact_list():
-        print(c)
+    for g in db.get_group_list():
+        print(g)
 finally:
-    db.destroy()
+    pass
