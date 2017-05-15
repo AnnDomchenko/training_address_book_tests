@@ -1,6 +1,7 @@
 import random
 import string
 import json
+import os.path
 from models.group import Group
 
 utf_symbols = ''.join([chr(l) for l in range(1, 0x10ffff) if chr(l).isprintable()])
@@ -13,10 +14,11 @@ def random_string(maxlen):
     symbols = string.ascii_letters + string.digits + " "*10 + string.punctuation + cyr_symbol_ru_uk
     return ''.join([random.choice(symbols) for _ in range(length)])
 
-with open("group_data.json", encoding='utf8') as f:
+file_name = os.path.join(os.path.dirname(os.path.abspath(__file__)), "group_data.json")
+
+with open(file_name, encoding='utf8') as f:
     test_groups = [Group(**data) for data in json.load(f)]
 
-print(test_groups)
 
 # names = ['', 'hgvjhsdfcs', "123"]
 # headers = ['', 'hgvjhsdfcs', "123"]
@@ -27,7 +29,7 @@ print(test_groups)
 #     for name in names
 #     for header in headers
 #     for footer in footers
-# ] + [
-#     Group(name=random_string(14), header=random_string(20), footer=random_string(50))
-#     for _ in range(5)
-# ]
+test_groups += [
+    Group(name=random_string(14), header=random_string(20), footer=random_string(50))
+    for _ in range(5)
+]

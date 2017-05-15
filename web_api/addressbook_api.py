@@ -15,7 +15,6 @@ class AddressBookAPI:
             self.wd = webdriver.Edge()
         else:
             raise ValueError("Unrecognized browser {}".format(browser))
-        self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)

@@ -73,4 +73,4 @@ class GroupHelper:
     def modify_by_number(self, number, data_to_modify):
         data_to_modify.name
         data_to_modify.header
-        data_to_modify.footer        data_to_modify.footer
+        data_to_modify.footer
