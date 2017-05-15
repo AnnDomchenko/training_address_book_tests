@@ -3,6 +3,7 @@ import random
 import json
 import os.path
 from web_api.addressbook_api import AddressBookAPI
+from db_api.addressbook_db import AddressbookDB
 from models.group import Group
 from data.test_groups import test_groups
 
@@ -23,14 +24,21 @@ def config(request):
 @pytest.fixture(scope="session")
 def app(request, config):
     browser = request.config.getoption("--browser")
-    addr_api = AddressBookAPI(browser=browser, base_url=config["base_url"])
+    addr_api = AddressBookAPI(browser=browser, base_url=config["web"]["base_url"])
     yield addr_api
     addr_api.destroy()
 
 
 @pytest.fixture(scope="session")
+def db(config):
+    dbfixture = AddressbookDB(**config['db'])
+    yield dbfixture
+    dbfixture.destroy()
+
+
+@pytest.fixture(scope="session")
 def init_login(app, config):
-    app.session.login(username=config["username"], password=config["password"])
+    app.session.login(username=config["web"]["username"], password=config["web"]["password"])
     yield
     app.session.logout()
 
