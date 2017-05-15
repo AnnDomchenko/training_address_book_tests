@@ -23,5 +23,5 @@ class AddressbookORM:
 
     @db_session
     def get_group_list(self):
-        query = select(g for g in self.GroupORM)
+        query = select(g for g in self.GroupORM).order_by(self.GroupORM.name, self.GroupORM.id)
         return [g.get_model() for g in query]
