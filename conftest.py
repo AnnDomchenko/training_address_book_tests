@@ -3,7 +3,8 @@ import random
 import json
 import os.path
 from web_api.addressbook_api import AddressBookAPI
-from db_api.addressbook_db import AddressbookDB
+# from db_api.addressbook_db import AddressbookDB
+from db_api.addressbook_orm import AddressbookORM
 from models.group import Group
 from data.test_groups import test_groups
 
@@ -31,9 +32,9 @@ def app(request, config):
 
 @pytest.fixture(scope="session")
 def db(config):
-    dbfixture = AddressbookDB(**config['db'])
+    dbfixture = AddressbookORM(**config['db'])
     yield dbfixture
-    dbfixture.destroy()
+    # dbfixture.destroy()
 
 
 @pytest.fixture(scope="session")
