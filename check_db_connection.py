@@ -1,21 +1,17 @@
-import pymysql
+from db_api.addressbook_db import AddressbookDB
 
 config = {
     "host": "localhost",
     "port": 8889,
     "user": "root",
     "password": "root",
-    "db": "test",
-    "charset": "utf8"
+    "db": "test"
 }
 
-connection = pymysql.connect(**config)
+db = AddressbookDB(**config)
 
 try:
-    with connection.cursor() as cursor:
-        sql = "SELECT * FROM group_list;"
-        cursor.execute(sql)
-        for row in cursor:
-            print(row)
+    for c in db.get_contact_list():
+        print(c)
 finally:
-    connection.close()
+    db.destroy()
