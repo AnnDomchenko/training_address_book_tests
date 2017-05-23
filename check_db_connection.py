@@ -11,7 +11,9 @@ config = {
 db = AddressbookORM(**config)
 
 try:
-    for g in db.get_group_list():
-        print(g)
+    l = db.get_contact_list()
+    for c in l:
+        print(c)
+    print(len(l))
 finally:
     pass
