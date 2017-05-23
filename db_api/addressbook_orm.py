@@ -36,7 +36,7 @@ class AddressbookORM:
         self.db.bind('mysql', host=host, port=port, user=user, password=password, db=db, charset="utf8",
                      conv=conversions)
         self.db.generate_mapping()
-        sql_debug(True)
+        # sql_debug(True)
 
     @db_session
     def get_group_list(self):
