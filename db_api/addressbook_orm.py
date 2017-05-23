@@ -15,6 +15,7 @@ class AddressbookORM:
         name = Optional(str, column="group_name")
         header = Optional(str, column="group_header")
         footer = Optional(str, column="group_footer")
+        contacts = Set("ContactORM", table="address_in_groups", column="id", reverse="groups", lazy=True)
 
         def get_model(self):
             return Group(id=self.id, name=self.name, header=self.header, footer=self.footer)
@@ -26,6 +27,7 @@ class AddressbookORM:
         middlename = Optional(str)
         lastname = Optional(str)
         deprecated = Optional(datetime)
+        groups = Set("GroupORM", table="address_in_groups", column="group_id", reverse="contacts", lazy=True)
 
         def get_model(self):
             return Contact(id=self.id, firstname=self.firstname, middlename=self.middlename, lastname=self.lastname)
@@ -45,3 +47,8 @@ class AddressbookORM:
     def get_contact_list(self):
         query = select(c for c in self.ContactORM if c.deprecated is None)
         return [c.get_model() for c in query]
+
+    @db_session
+    def get_contacts_in_group(self, group):
+        dbgroup = select(g for g in self.GroupORM if g.id == group.id).first()
+        return [c.get_model() for c in dbgroup.contacts]
