@@ -10,8 +10,8 @@ Feature: Group feature
     Examples:
     | name   | header | footer   |
     | as dfg | gf     | fdgdh    |
-    | 13214  |  12    |          |
-    |  рпмрп |  аыавыа |  ыавыаы  |
+    | 13214  |  12    | ?*)"'    |
+    |  рпмрп | аыавыа |  ыавыаы  |
 
   Scenario: Delete a random group
     Given a non-empty group list
